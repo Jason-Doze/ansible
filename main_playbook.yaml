@@ -1,0 +1,12 @@
+- name: Master Playbook
+  hosts: raspberrypi
+  gather_facts: false
+
+  tasks:
+    - name: Install Nginx
+      include_tasks: install_nginx.yaml
+
+    - name: Test Nginx
+      include_tasks: nginx_test.yaml
+
+
