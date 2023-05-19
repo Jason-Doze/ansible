@@ -1,0 +1,9 @@
+- name: Gather package facts
+  ansible.builtin.package_facts:
+    manager: auto
+
+- name: Check if Nginx is installed
+  ansible.builtin.debug:
+    msg: "Nginx is installed"
+  when: "'nginx' in ansible_facts.packages"
+

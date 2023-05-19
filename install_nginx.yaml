@@ -1,0 +1,9 @@
+- name: Gather package facts
+  ansible.builtin.package_facts:
+    manager: auto
+
+- name: Install Nginx
+  ansible.builtin.package:
+    name: nginx
+    state: latest
+
