@@ -1,4 +1,4 @@
-- name: Master Playbook
+- name: Main Playbook
   hosts: raspberrypi
   gather_facts: false
 

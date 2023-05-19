@@ -1,32 +1,27 @@
-# Ansible Playbook for Nginx Setup
+# Ansible Nginx Deployment Script 
 
-This project includes a set of Ansible playbooks that automate the installation of the Nginx web server on a Raspberry Pi, and subsequently test whether the installation was successful.
+This repository contains the necessary scripts and Ansible playbooks for deploying and managing an Nginx server on a Raspberry Pi 400 from MacOS.
 
 ## Structure
 
-This project is composed of three main files:
+This project is composed of five main files:
+1. `ansible_deploy.sh`: A bash script that handles the installation of Homebrew and Ansible. It also determines if Nginx is running on port 80. If not, it triggers an Ansible playbook to install and validate Nginx.
+2. `inventory.ini`: This file lists the target hosts for the playbooks. The hosts are grouped under the alias `raspberrypi`.
+3. `main_playbook.yaml`: This is the main playbook. It includes tasks from `install_nginx.yaml` and `nginx_test.yaml`.
+4. `install_nginx.yaml`: This playbook contains tasks that install the latest version of Nginx on the target host.
+5. `nginx_test.yaml`: This playbook contains tasks that check if Nginx has been installed on the target host.
 
-1. `main_playbook.yaml`: This is the main playbook. It includes tasks from `install_nginx.yaml` and `nginx_test.yaml`.
-2. `install_nginx.yaml`: This playbook contains tasks that install the latest version of Nginx on the target hosts.
-3. `nginx_test.yaml`: This playbook contains tasks that check whether Nginx has been installed on the target hosts.
-
-In addition, there is an inventory file:
-
-- `inventory.ini`: This file lists the target hosts for the playbooks. The hosts are grouped under the alias `raspberrypi`.
 
 ## Usage
 
-You need to have Ansible installed on your control machine to run these playbooks. In addition, you should have SSH access to the target hosts specified in `inventory.ini`.
+* You should have SSH access to the target hosts specified in `inventory.ini`.
 
-The commands below assume that you have cloned the repository and are in the root directory of the project.
+* Edit the inventory file: Replace `pi.attlocal.net` with the hostname or IP address of your Raspberry Pi in `inventory.ini`. 
 
-1. **Edit the inventory file:** Replace `pi.attlocal.net` with the hostname or IP address of your Raspberry Pi in `inventory.ini`. If necessary, change the `ansible_user` value to the user on the Raspberry Pi with sudo privileges.
+* Run the Main Playbook: Use the following command to run the main playbook:
 
-2. **Run the Main Playbook:** Use the following command to run the main playbook:
+```bash
+bash ansible_deploy.sh
+```
 
-   ```bash
-   ansible-playbook -i inventory.ini main_playbook.yaml
-
-3. This command will trigger the tasks in main_playbook.yaml, which in turn will install Nginx on the target hosts and test whether the installation was successful.
-
-4. Please ensure that the user specified in ansible_user has the necessary permissions to install packages on the target hosts.
+This script will install Homebrew and Ansible if they are not installed. Then it will check if Nginx is running on port 80. If not, it will run the Ansible playbook which installs and validates Nginx is running on the Raspberry Pi.
