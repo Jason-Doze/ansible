@@ -21,7 +21,7 @@ else
 fi
 
 # Dynamically add IP to inventory.ini file if Pi is running
-if ( dig +short pi.attlocal.net )
+if ( ping -c 1 $PI_HOST )
 then
   echo -e "\n==== RaspberryPI server running ====\n"
   if [ -f inventory.ini ]
@@ -31,7 +31,7 @@ then
     echo -e "\n=== Create inventory.ini file  ====\n"
 cat <<-EOF > inventory.ini
 [raspberrypi]
-$(dig +short pi.attlocal.net) ansible_user=$USER
+$PI_HOST ansible_user=$USER
 EOF
   fi
 else 

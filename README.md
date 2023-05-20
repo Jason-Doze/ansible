@@ -2,6 +2,14 @@
 
 This repository contains scripts and Ansible playbooks to setup and manage a Raspberry Pi server running Nginx. It includes scripts to deploy the setup and to tear it down using a MacOS.
 
+
+## Prerequisites
+Before using the scripts and Ansible playbooks in this repository, make sure you have the following:
+
+1. You should have SSH access to the Raspberry Pi server. The scripts and playbooks will interact with the server via SSH.
+
+2. The Raspberry Pi server must have its hostname set to "pi". This is essential as the scripts use this hostname to resolve the server's IP address.
+
 ## Structure
 
 This project is composed of seven main files:
@@ -15,16 +23,13 @@ This project is composed of seven main files:
 
 ## Usage
 
-* You should have SSH access to the target hosts specified in `inventory.ini`.
-
-* Run the Main Playbook: Use the following command to run the main playbook:
+* Run the Main Ansible playbook:
 
 ```bash
-bash ansible_deploy.sh
+PI_HOST=$(dig +short pi | tail -n1) bash ansible_deploy.sh
 ```
 
-* Run the destroy script to remove the SSH fingerprint of the Raspberry Pi server from your known_hosts file, trigger the playbook to shut down the Raspberry Pi, and delete the inventory file.
-
+* Run the destroy script:
 ```bash
-bash ansible_destroy.sh
+PI_HOST=$(dig +short pi | tail -n1) bash ansible_destroy.sh
 ```
