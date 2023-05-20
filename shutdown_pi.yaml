@@ -1,0 +1,9 @@
+- name: Shutdown Pi Server
+  hosts: raspberrypi
+  gather_facts: false
+  tasks:
+    - name: Shutdown Raspberry Pi
+      become: yes
+      ansible.builtin.command:
+        cmd: shutdown now -h +1
+

@@ -20,12 +20,29 @@ else
   brew install ansible
 fi
 
-# Run Ansible playbook
-if ( curl -I pi.attlocal.net:80 )
+# Dynamically add IP to inventory.ini file if Pi is running
+if ( dig +short pi.attlocal.net )
 then
-  echo -e "\n==== Nginx running on port 80 ====\n"
-else
-  echo -e "\n==== Run Ansible playbook ====\n"
-  ansible-playbook -i inventory.ini main_playbook.yaml
+  echo -e "\n==== RaspberryPI server running ====\n"
+  if [ -f inventory.ini ]
+  then 
+    echo -e "\n=== Inventory.ini file present ====\n"
+  else
+    echo -e "\n=== Create inventory.ini file  ====\n"
+cat <<-EOF > inventory.ini
+[raspberrypi]
+$(dig +short pi.attlocal.net) ansible_user=$USER
+EOF
+  fi
+else 
+  echo -e "\n==== RaspberryPI server not running ====\n"
 fi
 
+# Run main playbook
+if [ -f inventory.ini ]
+then
+  echo -e "\n==== Running main playbook ====\n"
+  ansible-playbook -i inventory.ini main_playbook.yaml
+else
+  echo -e "\n==== Inventory file not present ====\n"
+fi
