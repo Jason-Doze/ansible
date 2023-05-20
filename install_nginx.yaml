@@ -1,9 +1,14 @@
+- name: Update APT package manager cache
+  become: yes
+  ansible.builtin.apt:
+    update_cache: yes
+
 - name: Gather package facts
   ansible.builtin.package_facts:
     manager: auto
 
 - name: Install Nginx
+  become: yes
   ansible.builtin.package:
     name: nginx
     state: latest
-
