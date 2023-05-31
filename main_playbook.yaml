@@ -9,4 +9,10 @@
     - name: Test Nginx
       include_tasks: nginx_test.yaml
 
+    - name: Install Node
+      include_tasks: install_nodejs.yaml
+
+    - name: Test Node
+      include_tasks: nodejs_test.yaml
+
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# This script installs Homebrew and Ansible, and then checks if Nginx is running on port 80. If not, it runs an Ansible playbook that installs Nginx and verifies its successful installation.
+# This script installs Homebrew and Ansible, and then checks if the Pi Server is running. If so, it runs an Ansible playbook that installs Nginx, NodeJS and verifies its successful installation.
 
 # Install Homebrew
 if ( which brew > /dev/null )
@@ -26,10 +26,10 @@ then
   echo -e "\n==== RaspberryPI server running ====\n"
   if [ -f inventory.ini ]
   then 
-    echo -e "\n=== Inventory.ini file present ====\n"
+    echo -e "\n==== Inventory.ini file present ====\n"
   else
-    echo -e "\n=== Create inventory.ini file  ====\n"
-cat <<-EOF > inventory.ini
+    echo -e "\n==== Create inventory.ini file  ====\n"
+  cat <<- EOF > inventory.ini
 [raspberrypi]
 $PI_HOST ansible_user=$USER
 EOF
