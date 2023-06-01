@@ -1,0 +1,8 @@
+- name: Gather package facts
+  ansible.builtin.package_facts:
+    manager: auto
+
+- name: Check if NodeJS is installed
+  ansible.builtin.debug:
+    msg: "NodeJS is installed"
+  when: "'nodejs' in ansible_facts.packages"
