@@ -8,7 +8,7 @@ then
   echo -e "\n==== Homebrew installed ====\n"
 else 
   echo -e "\n==== Installing homebrew ====\n"
-  NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  sudo true; NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
 # Install Ansible
