@@ -5,5 +5,4 @@
     - name: Shutdown Raspberry Pi
       become: yes
       ansible.builtin.command:
-        cmd: shutdown now -h +1
-
+        cmd: shutdown now
